@@ -1,0 +1,47 @@
+
+
+
+
+body{
+  background-color: #000;
+ display: flex;
+ align-items:center;
+ justify-content: center;
+
+}
+
+button{
+  border-radius: 7px;
+  outline: none;
+}
+input{
+  outline: none;
+}
+input:hover{
+  border:2px solid green;
+}
+canvas{
+  position: absolute;
+  border-radius: 9px;
+
+}
+#scene{
+  width: 542px;
+  height: 680px;
+  position: relative;
+  display:flex;
+
+  transform: perspective(50cm) rotateX(50deg) rotateY(-1deg) rotateZ(1deg);
+
+
+}
+@media (pointer:none), (pointer:coarse) {
+  #scene{
+    transform: none;
+    max-width:90%;
+  }
+}
+scene{
+  width: 404px;
+
+}

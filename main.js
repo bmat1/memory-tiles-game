@@ -1,7 +1,8 @@
 ( function ( $ ) {
     'use strict';
     $( document ).ready( function () {
-
+    //this is test comment to check out git
+    
 let SIZE = 128;
 let ROWS = 5;
 let COLS = 4;

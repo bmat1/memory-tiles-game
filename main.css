@@ -8,10 +8,13 @@ body{
 }
 
 #test{
-  height:150px;
-  background-color: green;
-  min-width:100%;
-  width:100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height:800px;
+  background-color: white;
+  z-index:1001;
+  width:200px;
 }
 
 

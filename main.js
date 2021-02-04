@@ -12,7 +12,8 @@
       let contextes =[];
       let numberOfCards = ROWS*COLS;
       let cardIndexes = [];
-      let startButton = document.querySelector('#startButton');   
+      let startButton = document.querySelector('#startButton'); 
+      let test = document.getElementById('test'); 
        //initialy disable game screen
       
       scene.style.display = "none";
@@ -60,7 +61,7 @@
           spriteIndexes[cardIndex] = i;
           }
         }
-        console.log(spriteIndexes);
+        
       }
       
       let card = {
@@ -88,6 +89,60 @@
       img.src = "https://raw.githubusercontent.com/bmat1/simon-game/master/tileSheet.png";
       //locally change above to img.src = "tileSheet.png";
       atributeCardIndexToTile();
+
+      //function to get pairs of indexes of cards with same picture
+      function getIndexesOfPairedCard(){
+        let indexes = [];
+        for(let i = 0; i <10 ; i++){
+          let localIndexes = [], j=-1;
+          while ((j = spriteIndexes.indexOf(i, j+1)) !=-1 ){
+            localIndexes.push(j);
+          }
+          indexes.push(localIndexes);
+        }
+       
+        return indexes;
+      };
+       let indexes = getIndexesOfPairedCard();
+      
+       
+
+      function redrawTestScreen() {
+         let newUl  = document.createElement('ul');
+
+         for(let i = 0; i< indexes.length; i++){
+
+            let currentPair = indexes[i];
+            let newLi = document.createElement('li');
+           
+            for(let j = 0; j<currentPair.length; j++){
+              let newLip = document.createElement('p');
+              let currentPairValue = currentPair[j];
+             
+              newLip.innerText = `${currentPair[j]} revealed ${cardObjects[currentPairValue].revealCounter}`; 
+              newLi.appendChild(newLip);
+            }
+           
+            newUl.appendChild(newLi);
+          };
+          
+          test.appendChild(newUl);
+       }
+
+       function updatePoints(){
+         
+       }
+        
+
+      
+
+      
+
+      
+
+
+
+
       for(let i = 0; i < numberOfCards; i++){
         let newCard = Object.create(card);
         newCard.tilesheetIndex = spriteIndexes[i];
@@ -137,19 +192,26 @@
         scene.addEventListener("mousedown", clickHandler,false);
       }
       function clickHandler(e){
-        console.log(e.target.id);
-       
+        
+        
+        
+        
         
         let index = e.target.id;
         let clickedCard = cardObjects[index];
       
         if(clickedCard.state === card.HID){
-      
+          //redraw test screen values
+          test.innerHTML = '';
+          redrawTestScreen();
+          
+          clickedCard.revealCounter++;
           switch (game.pairTiles.length) {
             case 0:
             clickedCard.state = card.VISIBLE;
-            clickedCard.revealCounter++;
-              console.log( clickedCard.revealCounter);
+            
+           
+             
             game.pairTiles[0] = clickedCard.tilesheetIndex;
             game.pairIndexes[0] = index;
             
